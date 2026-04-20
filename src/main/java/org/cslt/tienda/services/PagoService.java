@@ -12,5 +12,6 @@ public interface PagoService {
     Pago newPago(Pago pago);
     Pago updatePago(Long id, Pago pago);
     void deletePagoById(Long id);
+    Pago findByCompra(Long compra_id);
 
 }

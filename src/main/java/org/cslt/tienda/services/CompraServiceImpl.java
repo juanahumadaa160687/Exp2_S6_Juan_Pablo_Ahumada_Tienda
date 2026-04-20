@@ -31,8 +31,7 @@ public class CompraServiceImpl  implements CompraService {
     @Override
     public Compra updateCompra(Long id, Compra compra) {
         for(Compra existingCompra : compraRepository.findAll()){
-            if(existingCompra.getId_compra().equals(id)){
-                existingCompra.setNro_compra(compra.getNro_compra());
+            if(existingCompra.getCompra_id().equals(id)){
                 existingCompra.setProducto(compra.getProducto());
                 return compraRepository.save(existingCompra);
             }

@@ -13,23 +13,15 @@ import java.sql.Date;
 public class OrdenCompra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "orden_compra_seq", sequenceName = "orden_compra_seq", allocationSize = 1, initialValue = 1000)
     private Long id;
 
-    private String nro_orden;
+    @Column(nullable = false, columnDefinition = "DATE")
     private Date fecha_orden;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "FK_ORDEN_COMPRA_CLIENTE"))
-    private Cliente cliente;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "compra_id", nullable = false, foreignKey = @ForeignKey(name = "FK_ORDEN_COMPRA_COMPRA"))
-    private Compra compra;
-
-    @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "pago_id", nullable = false, foreignKey = @ForeignKey(name = "FK_ORDEN_COMPRA_PAGO"))
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "pago_id", foreignKey = @ForeignKey(name = "FK_ORDEN_COMPRA_PAGO"))
     private Pago pago;
-
 
 }

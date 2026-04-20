@@ -9,7 +9,5 @@ public interface OrdenCompraService {
     List<OrdenCompra> getAllOrdenCompra();
     OrdenCompra getOrdenCompraById(Long id);
     OrdenCompra newOrdenCompra(OrdenCompra ordenCompra);
-    OrdenCompra updateOrdenCompra(Long id, OrdenCompra ordenCompra);
     void deleteOrdenCompraById(Long id);
-
 }

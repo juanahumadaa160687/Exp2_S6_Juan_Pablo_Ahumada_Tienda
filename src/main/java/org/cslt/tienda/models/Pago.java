@@ -15,16 +15,17 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_pago;
 
+    @Column(length = 100, nullable = false, columnDefinition = "VARCHAR(100)")
     private String medio_pago;
-    private String total_pago;
+
+    @Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
+    private Double total_pago;
+
+    @Column(nullable = false, columnDefinition = "DATE")
     private Date fecha_pago;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PAGO_CLIENTE"))
-    private Cliente cliente;
-
-    @OneToOne(fetch = FetchType.LAZY,  cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "compra_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PAGO_COMPRA"))
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "compra_id", foreignKey = @ForeignKey(name = "FK_PAGO_COMPRA"))
     private Compra compra;
 
 }

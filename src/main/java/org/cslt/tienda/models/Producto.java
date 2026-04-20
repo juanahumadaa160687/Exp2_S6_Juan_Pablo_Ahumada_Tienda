@@ -1,12 +1,15 @@
 package org.cslt.tienda.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "PRODUCTO")
 
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Producto {
 
@@ -14,9 +17,16 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_producto;
 
+    @Column(nullable = false, columnDefinition = "VARCHAR(100)")
     private String nombre;
+
+    @Column(columnDefinition = "VARCHAR(255)")
     private String descripcion;
+
+    @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private Double precio;
-    private Integer stock;
+
+    @Column(nullable = false, columnDefinition = "INTEGER")
+    private int stock;
 
 }

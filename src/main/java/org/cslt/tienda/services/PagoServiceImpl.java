@@ -46,4 +46,9 @@ public class PagoServiceImpl implements PagoService {
         pagoRepository.deleteById(id);
     }
 
+    @Override
+    public Pago findByCompra(Long compra_id) {
+        return pagoRepository.findByCompra(compra_id);
+    }
+
 }
