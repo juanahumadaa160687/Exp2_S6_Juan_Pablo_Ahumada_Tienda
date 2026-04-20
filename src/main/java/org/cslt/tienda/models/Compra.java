@@ -25,7 +25,7 @@ public class Compra {
     )
     private List<Producto> producto;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "FK_COMPRA_CLIENTE"))
     private Cliente cliente;
 

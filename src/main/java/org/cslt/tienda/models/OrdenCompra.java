@@ -20,7 +20,7 @@ public class OrdenCompra {
     @Column(nullable = false, columnDefinition = "DATE")
     private Date fecha_orden;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     @JoinColumn(name = "pago_id", foreignKey = @ForeignKey(name = "FK_ORDEN_COMPRA_PAGO"))
     private Pago pago;
 
