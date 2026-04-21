@@ -1,13 +1,17 @@
 package org.cslt.tienda.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 
 @Entity
 @Table(name = "CLIENTE")
 
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Cliente {
 
     @Id
