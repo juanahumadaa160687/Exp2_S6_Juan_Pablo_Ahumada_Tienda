@@ -1,4 +1,4 @@
-package org.cslt.tienda.models;
+package org.cslt.tienda.models.producto;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
 package org.cslt.tienda.services;
 
 
-import org.cslt.tienda.models.Pago;
+import org.cslt.tienda.models.pago.Pago;
 
 import java.util.List;
 

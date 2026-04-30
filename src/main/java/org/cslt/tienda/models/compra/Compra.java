@@ -1,7 +1,9 @@
-package org.cslt.tienda.models;
+package org.cslt.tienda.models.compra;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.cslt.tienda.models.producto.Producto;
+import org.cslt.tienda.models.cliente.Cliente;
 
 import java.util.List;
 

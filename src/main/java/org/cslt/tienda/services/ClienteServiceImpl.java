@@ -1,6 +1,6 @@
 package org.cslt.tienda.services;
 
-import org.cslt.tienda.models.Cliente;
+import org.cslt.tienda.models.cliente.Cliente;
 import org.cslt.tienda.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,15 +31,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente updateCliente(Long id, Cliente cliente) {
-        for (Cliente existingCliente : clienteRepository.findAll()) {
-            if (Objects.equals(existingCliente.getCliente_id(), id)) {
-                existingCliente.setName(cliente.getName());
-                existingCliente.setEmail(cliente.getEmail());
-                existingCliente.setPhone(cliente.getPhone());
-                existingCliente.setAddress(cliente.getAddress());
-                existingCliente.setNro_documento(cliente.getNro_documento());
-                return clienteRepository.save(existingCliente);
-            }
+
+        Cliente updateCliente = clienteRepository.findById(id).orElse(null);
+
+        if(updateCliente != null){
+            updateCliente.setName(cliente.getName());
+            updateCliente.setEmail(cliente.getEmail());
+            updateCliente.setNro_documento(cliente.getNro_documento());
+            updateCliente.setPhone(cliente.getPhone());
+            updateCliente.setAddress(cliente.getAddress());
+
+            clienteRepository.save(updateCliente);
+
+            return updateCliente;
         }
         return null;
     }

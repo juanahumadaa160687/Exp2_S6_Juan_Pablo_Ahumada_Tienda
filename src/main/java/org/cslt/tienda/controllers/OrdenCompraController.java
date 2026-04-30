@@ -1,8 +1,14 @@
 package org.cslt.tienda.controllers;
 
-import org.cslt.tienda.models.OrdenCompra;
+import org.cslt.tienda.models.ordencompra.OrdenCompra;
+import org.cslt.tienda.models.ordencompra.OrdenCompraModel;
+import org.cslt.tienda.models.ordencompra.OrdenCompraModelAssembler;
 import org.cslt.tienda.services.OrdenCompraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -11,64 +17,62 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ordenes-compra")
+@ComponentScan(basePackages = "org.cslt.tienda.models.ordencompra")
 public class OrdenCompraController {
 
     @Autowired
-    OrdenCompraService ordenCompraService;
+    private OrdenCompraService ordenCompraService;
 
     @Autowired
-    PagoController pagoController;
+    private PagoController pagoController;
+
+    @Autowired
+    private OrdenCompraModelAssembler ordenCompraModelAssembler;
 
     @GetMapping("/all")
-    public List<OrdenCompra> getAllOrdenCompra(){
-        try {
-            System.out.println("Obteniendo todas las ordenes de compra...");
-            return ordenCompraService.getAllOrdenCompra();
-        }
-        catch (Exception e){
-            throw new RuntimeException("Error al obtener las ordenes de compra: " + e.getMessage());
-        }
+    public CollectionModel<OrdenCompraModel> getAllOrdenesCompra(){
+
+        List<OrdenCompra> ordenesCompra = ordenCompraService.getAllOrdenCompra();
+
+        List<OrdenCompraModel> ordenCompraModels = ordenesCompra.stream()
+                .map(ordenCompraModelAssembler::toModel)
+                .toList();
+
+        return CollectionModel.of(ordenCompraModels);
     }
 
     @GetMapping("/{id}")
-    public OrdenCompra getOrdenCompraById(@PathVariable Long id){
-        try {
-            System.out.println("Orden de compra obtenida: " + ordenCompraService.getOrdenCompraById(id).getId());
-            return ordenCompraService.getOrdenCompraById(id);
-        }
-        catch (Exception e){
-            throw new RuntimeException("Error al obtener la orden de compra: " + e.getMessage());
-        }
+    public EntityModel<OrdenCompraModel> getOrdenCompraById(@PathVariable Long id){
+
+        OrdenCompra ordenCompra = ordenCompraService.getOrdenCompraById(id);
+        OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(ordenCompra);
+
+        return EntityModel.of(ordenCompraModel);
+
     }
 
     @PostMapping("/new/{compra_id}")
-    public OrdenCompra newOrdenCompra(@PathVariable Long compra_id){
-        try {
+    public ResponseEntity<OrdenCompraModel> newOrdenCompra(@PathVariable Long compra_id){
 
-            OrdenCompra ordenCompra = new OrdenCompra();
+        OrdenCompra ordenCompra = new OrdenCompra();
 
-            ordenCompra.setFecha_orden(Date.valueOf(LocalDate.now()));
-            ordenCompra.setPago(pagoController.getPagoByCompraId(compra_id));
+        ordenCompra.setFecha_orden(Date.valueOf(LocalDate.now()));
+        ordenCompra.setPago(pagoController.getPagoByCompraId(compra_id));
 
-            System.out.println("Recibida orden de compra para compra: " + compra_id);
+        OrdenCompra newOrdenCompra = ordenCompraService.newOrdenCompra(ordenCompra);
+        OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(newOrdenCompra);
 
-            return ordenCompraService.newOrdenCompra(ordenCompra);
-        }
-        catch (Exception e){
-            throw new RuntimeException("Error al obtener la orden de compra: " + e.getMessage());
-        }
-
+        return ResponseEntity
+                .created(ordenCompraModel.getRequiredLink("self").toUri())
+                .body(ordenCompraModel);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteOrdenCompraById(@PathVariable Long id){
-        try {
-            System.out.println("Eliminando orden de compra con ID: " + id);
-            ordenCompraService.deleteOrdenCompraById(id);
-        }
-        catch (Exception e){
-            throw new RuntimeException("Error al obtener la orden de compra: " + e.getMessage());
-        }
+    public ResponseEntity<?> deleteOrdenCompraById(@PathVariable Long id){
+
+        ordenCompraService.deleteOrdenCompraById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

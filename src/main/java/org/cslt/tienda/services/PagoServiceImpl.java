@@ -1,6 +1,6 @@
 package org.cslt.tienda.services;
 
-import org.cslt.tienda.models.Pago;
+import org.cslt.tienda.models.pago.Pago;
 import org.cslt.tienda.repositories.PagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,13 +30,16 @@ public class PagoServiceImpl implements PagoService {
 
     @Override
     public Pago updatePago(Long id, Pago pago) {
-        for (Pago existingPago : pagoRepository.findAll()) {
-            if (existingPago.getId_pago().equals(id)) {
-                existingPago.setMedio_pago(pago.getMedio_pago());
-                existingPago.setFecha_pago(pago.getFecha_pago());
-                existingPago.setTotal_pago(pago.getTotal_pago());
-                return pagoRepository.save(existingPago);
-            }
+        Pago pagoEntity = pagoRepository.findById(id).orElse(null);
+
+        if(pagoEntity != null){
+            pagoEntity.setTotal_pago(pago.getTotal_pago());
+            pagoEntity.setFecha_pago(pago.getFecha_pago());
+            pagoEntity.setCompra(pago.getCompra());
+
+            pagoRepository.save(pagoEntity);
+
+            return pagoEntity;
         }
         return null;
     }

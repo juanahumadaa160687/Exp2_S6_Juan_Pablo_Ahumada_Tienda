@@ -1,6 +1,6 @@
 package org.cslt.tienda.repositories;
 
-import org.cslt.tienda.models.Pago;
+import org.cslt.tienda.models.pago.Pago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

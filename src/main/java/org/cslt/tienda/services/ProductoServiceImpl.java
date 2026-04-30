@@ -1,6 +1,6 @@
 package org.cslt.tienda.services;
 
-import org.cslt.tienda.models.Producto;
+import org.cslt.tienda.models.producto.Producto;
 import org.cslt.tienda.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,17 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public Producto updateProducto(Long id, Producto producto) {
-        for(Producto p : getAllProductos()){
-            if (p.getId_producto().equals(id)){
-                p.setNombre(producto.getNombre());
-                p.setPrecio(producto.getPrecio());
-                p.setStock(producto.getStock());
-                p.setDescripcion(producto.getDescripcion());
-                return productoRepository.save(p);
-            }
+        Producto existingProducto = productoRepository.findById(id).orElse(null);
+
+        if (existingProducto != null) {
+            existingProducto.setNombre(producto.getNombre());
+            existingProducto.setDescripcion(producto.getDescripcion());
+            existingProducto.setPrecio(producto.getPrecio());
+            existingProducto.setStock(producto.getStock());
+
+            productoRepository.save(existingProducto);
+
+            return existingProducto;
         }
         return null;
     }

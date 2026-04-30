@@ -1,6 +1,6 @@
 package org.cslt.tienda.repositories;
 
-import org.cslt.tienda.models.OrdenCompra;
+import org.cslt.tienda.models.ordencompra.OrdenCompra;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

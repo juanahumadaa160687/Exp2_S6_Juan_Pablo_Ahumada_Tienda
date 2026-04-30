@@ -1,7 +1,7 @@
 package org.cslt.tienda.services;
 
 
-import org.cslt.tienda.models.Compra;
+import org.cslt.tienda.models.compra.Compra;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package org.cslt.tienda.services;
 
-import org.cslt.tienda.models.Compra;
+import org.cslt.tienda.models.compra.Compra;
 import org.cslt.tienda.repositories.CompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +30,12 @@ public class CompraServiceImpl  implements CompraService {
 
     @Override
     public Compra updateCompra(Long id, Compra compra) {
-        for(Compra existingCompra : compraRepository.findAll()){
-            if(existingCompra.getCompra_id().equals(id)){
-                existingCompra.setProducto(compra.getProducto());
-                return compraRepository.save(existingCompra);
-            }
+        Compra compraToUpdate = compraRepository.findById(id).orElse(null);
+
+        if (compraToUpdate != null) {
+            compraToUpdate.setCliente(compra.getCliente());
+            compraToUpdate.setProducto(compra.getProducto());
+            return compraRepository.save(compraToUpdate);
         }
         return null;
     }

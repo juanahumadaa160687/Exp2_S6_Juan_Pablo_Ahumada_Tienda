@@ -1,7 +1,8 @@
-package org.cslt.tienda.models;
+package org.cslt.tienda.models.pago;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.cslt.tienda.models.compra.Compra;
 
 import java.sql.Date;
 

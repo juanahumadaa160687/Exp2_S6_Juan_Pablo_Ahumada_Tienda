@@ -1,6 +1,6 @@
 package org.cslt.tienda.services;
 
-import org.cslt.tienda.models.OrdenCompra;
+import org.cslt.tienda.models.ordencompra.OrdenCompra;
 
 import java.util.List;
 

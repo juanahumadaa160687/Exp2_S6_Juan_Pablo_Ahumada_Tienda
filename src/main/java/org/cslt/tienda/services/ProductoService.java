@@ -1,7 +1,7 @@
 package org.cslt.tienda.services;
 
 
-import org.cslt.tienda.models.Producto;
+import org.cslt.tienda.models.producto.Producto;
 
 import java.util.List;
 
