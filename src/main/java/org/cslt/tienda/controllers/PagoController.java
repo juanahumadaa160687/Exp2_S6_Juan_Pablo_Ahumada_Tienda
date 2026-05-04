@@ -46,13 +46,13 @@ public class PagoController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<PagoModel> newPago(@RequestBody Pago pago){
+    public ResponseEntity<?> newPago(@RequestBody Pago pago){
 
         Pago newPago = pagoService.newPago(pago);
         PagoModel pagoModel = pagoModelAssembler.toModel(newPago);
 
-        return ResponseEntity
-                .ok(pagoModel);
+        return ResponseEntity.ok()
+                .body(pagoModel);
     }
 
     @PutMapping("/edit/{id}")
