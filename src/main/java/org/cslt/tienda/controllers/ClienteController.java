@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,11 +52,13 @@ public class ClienteController {
     }
 
     @PostMapping("/new")
-    public Cliente createCliente(@RequestBody Cliente cliente){
+    public ResponseEntity<?> createCliente(@RequestBody Cliente cliente){
 
         clienteService.newCliente(cliente);
 
-        return cliente;
+        ClienteModel clienteModel = clienteModelAssembler.toModel(cliente);
+
+        return ResponseEntity.created(clienteModel.getRequiredLink("self").toUri()).body(clienteModel);
     }
 
     @PutMapping("/edit/{id}")

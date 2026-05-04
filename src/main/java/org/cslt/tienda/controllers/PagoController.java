@@ -50,8 +50,9 @@ public class PagoController {
     public ResponseEntity<?> newPago(@RequestBody Pago pago){
 
         pagoService.newPago(pago);
+        PagoModel pagoModel = pagoModelAssembler.toModel(pago);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.created(pagoModel.getRequiredLink("self").toUri()).body(pagoModel);
     }
 
     @PutMapping("/edit/{id}")

@@ -50,8 +50,9 @@ public class ProductoController {
     public ResponseEntity<?> newProducto(@RequestBody Producto producto){
 
         productoService.newProducto(producto);
+        ProductoModel productoModel = productoModelAssembler.toModel(producto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.created(productoModel.getRequiredLink("self").toUri()).body(productoModel);
     }
 
     @PutMapping("/edit/{id}")

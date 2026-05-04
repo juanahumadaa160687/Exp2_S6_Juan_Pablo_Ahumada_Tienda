@@ -53,7 +53,7 @@ public class OrdenCompraController {
     }
 
     @PostMapping("/new/{compra_id}")
-    public ResponseEntity<?> newOrdenCompra(@PathVariable Long compra_id){
+    public ResponseEntity<OrdenCompraModel> newOrdenCompra(@PathVariable Long compra_id){
 
         OrdenCompra ordenCompra = new OrdenCompra();
 
@@ -61,8 +61,9 @@ public class OrdenCompraController {
         ordenCompra.setPago(pagoController.getPagoByCompraId(compra_id));
 
         ordenCompraService.newOrdenCompra(ordenCompra);
+        OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(ordenCompra);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.created(ordenCompraModel.getRequiredLink("self").toUri()).body(ordenCompraModel);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -55,7 +55,7 @@ public class CompraController {
         CompraModel compraModel = compraModelAssembler.toModel(newCompra);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.created(compraModel.getRequiredLink("self").toUri()).body(compraModel);
     }
 
     @PutMapping("/edit/{id}")
