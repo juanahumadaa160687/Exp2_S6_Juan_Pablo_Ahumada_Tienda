@@ -82,6 +82,18 @@ public class OrdenCompraControllerTest {
                 .andExpect(jsonPath("$.id").value(ordenCompra.getId()));
     }
 
+    @Test
+    @DisplayName("Test create Orden Compra")
+    public void createOrdenCompraTest() throws Exception {
+
+        when(service.newOrdenCompra(any(OrdenCompra.class))).thenReturn(ordenCompra);
+
+        mockMvc.perform(post("/ordenes-compra/new")
+                .contentType("application/json")
+                .content("{\"fecha_orden\":\"2024-07-01\",\"pago\":{\"id_pago\":1,\"medio_pago\":\"Crédito\",\"fecha_pago\":\"2024-07-01\",\"total_pago\":100.0,\"compra\":{\"compra_id\":1}}}"))
+                .andExpect(status().isCreated());
+    }
+
 
     @Test
     @DisplayName("Test Delete Orden Compra")

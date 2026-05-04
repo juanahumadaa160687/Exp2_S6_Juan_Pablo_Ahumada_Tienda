@@ -52,13 +52,8 @@ public class OrdenCompraController {
 
     }
 
-    @PostMapping("/new/{compra_id}")
-    public ResponseEntity<OrdenCompraModel> newOrdenCompra(@PathVariable Long compra_id){
-
-        OrdenCompra ordenCompra = new OrdenCompra();
-
-        ordenCompra.setFecha_orden(Date.valueOf(LocalDate.now()));
-        ordenCompra.setPago(pagoController.getPagoByCompraId(compra_id));
+    @PostMapping("/new")
+    public ResponseEntity<?> newOrdenCompra(@RequestBody OrdenCompra ordenCompra){
 
         ordenCompraService.newOrdenCompra(ordenCompra);
         OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(ordenCompra);
