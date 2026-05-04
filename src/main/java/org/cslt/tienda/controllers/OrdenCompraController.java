@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,8 +63,7 @@ public class OrdenCompraController {
         OrdenCompra newOrdenCompra = ordenCompraService.newOrdenCompra(ordenCompra);
         OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(newOrdenCompra);
 
-        return ResponseEntity
-                .ok(ordenCompraModel);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/delete/{id}")
