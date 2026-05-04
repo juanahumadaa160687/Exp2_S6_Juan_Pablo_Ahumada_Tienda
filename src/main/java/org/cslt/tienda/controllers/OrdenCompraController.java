@@ -63,8 +63,7 @@ public class OrdenCompraController {
         OrdenCompraModel ordenCompraModel = ordenCompraModelAssembler.toModel(newOrdenCompra);
 
         return ResponseEntity
-                .created(ordenCompraModel.getRequiredLink("self").toUri())
-                .body(ordenCompraModel);
+                .ok(ordenCompraModel);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -3,7 +3,6 @@ package org.cslt.tienda.controllers;
 import org.cslt.tienda.models.compra.Compra;
 import org.cslt.tienda.models.compra.CompraModel;
 import org.cslt.tienda.models.compra.CompraModelAssembler;
-import org.cslt.tienda.models.producto.Producto;
 import org.cslt.tienda.services.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -51,11 +50,12 @@ public class CompraController {
     @PostMapping("/new")
     public ResponseEntity<CompraModel> newCompra(@RequestBody Compra compra){
 
-        compraService.newCompra(compra);
+        Compra newCompra = compraService.newCompra(compra);
+        CompraModel compraModel = compraModelAssembler.toModel(newCompra);
+
 
         return ResponseEntity
-                .created(compraModelAssembler.toModel(compra).getRequiredLink("self").toUri())
-                .body(compraModelAssembler.toModel(compra));
+                .ok(compraModel);
 
     }
 

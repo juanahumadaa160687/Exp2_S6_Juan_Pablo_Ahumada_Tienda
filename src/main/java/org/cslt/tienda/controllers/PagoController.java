@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,8 +52,7 @@ public class PagoController {
         PagoModel pagoModel = pagoModelAssembler.toModel(newPago);
 
         return ResponseEntity
-                .created(pagoModel.getRequiredLink("self").toUri())
-                .body(pagoModel);
+                .ok(pagoModel);
     }
 
     @PutMapping("/edit/{id}")

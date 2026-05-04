@@ -52,8 +52,7 @@ public class ProductoController {
         ProductoModel productoModel = productoModelAssembler.toModel(newProducto);
 
         return ResponseEntity
-                .created(productoModel.getRequiredLink("self").toUri())
-                .body(productoModel);
+                .ok(productoModel);
     }
 
     @PutMapping("/edit/{id}")

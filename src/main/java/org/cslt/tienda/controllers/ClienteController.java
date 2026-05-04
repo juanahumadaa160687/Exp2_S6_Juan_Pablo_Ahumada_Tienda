@@ -58,8 +58,7 @@ public class ClienteController {
         ClienteModel clienteModel = clienteModelAssembler.toModel(newCliente);
 
         return ResponseEntity
-                .created(clienteModel.getRequiredLink("self").toUri())
-                .body(clienteModel);
+                .ok(clienteModel);
     }
 
     @PutMapping("/edit/{id}")
