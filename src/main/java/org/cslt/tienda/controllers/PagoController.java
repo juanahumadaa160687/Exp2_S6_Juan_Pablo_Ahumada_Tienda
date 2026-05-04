@@ -51,8 +51,7 @@ public class PagoController {
         Pago newPago = pagoService.newPago(pago);
         PagoModel pagoModel = pagoModelAssembler.toModel(newPago);
 
-        return ResponseEntity.ok()
-                .body(pagoModel);
+        return ResponseEntity.status(201).build();
     }
 
     @PutMapping("/edit/{id}")
