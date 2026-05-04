@@ -53,19 +53,19 @@ public class ClienteController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> createCliente(@RequestBody Cliente cliente){
+    public Cliente createCliente(@RequestBody Cliente cliente){
 
         clienteService.newCliente(cliente);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return cliente;
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
+    public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
 
         clienteService.updateCliente(id, cliente);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return cliente;
     }
 
     @DeleteMapping("/delete/{id}")
