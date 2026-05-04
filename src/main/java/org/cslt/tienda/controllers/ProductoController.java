@@ -47,10 +47,9 @@ public class ProductoController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ProductoModel> newProducto(@RequestBody Producto producto){
+    public ResponseEntity<?> newProducto(@RequestBody Producto producto){
 
-        Producto newProducto = productoService.newProducto(producto);
-        ProductoModel productoModel = productoModelAssembler.toModel(newProducto);
+        productoService.newProducto(producto);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,10 +49,9 @@ public class PagoController {
     @PostMapping("/new")
     public ResponseEntity<?> newPago(@RequestBody Pago pago){
 
-        Pago newPago = pagoService.newPago(pago);
-        PagoModel pagoModel = pagoModelAssembler.toModel(newPago);
+        pagoService.newPago(pago);
 
-        return ResponseEntity.status(201).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/edit/{id}")
