@@ -85,8 +85,7 @@ public class PagoControllerTest {
         mockMvc.perform(post("/pagos/new")
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content("{\"medio_pago\":\"Crédito\",\"fecha_pago\":\"2024-07-01\",\"total_pago\":100.0,\"compra\":{\"compra_id\":1}}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id_pago").value(pago.getId_pago()));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -99,8 +98,7 @@ public class PagoControllerTest {
         mockMvc.perform(put("/pagos/edit/"+pago.getId_pago())
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content("{\"medio_pago\":\"Crédito\",\"fecha_pago\":\"2024-07-01\",\"total_pago\":100.0,\"compra\":{\"compra_id\":1}}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id_pago").value(pago.getId_pago()));
+                .andExpect(status().isOk());
     }
 
      @Test

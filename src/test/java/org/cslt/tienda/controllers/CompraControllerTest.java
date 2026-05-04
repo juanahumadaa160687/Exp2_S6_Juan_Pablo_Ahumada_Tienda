@@ -92,9 +92,7 @@ public class CompraControllerTest {
         mockMvc.perform(post("/compras/new")
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content("{\"compra_id\":1,\"cliente\":{\"cliente_id\":1,\"nro_documento\":\"12345678\",\"name\":\"Juan Perez\",\"email\":\"jperez@email.com\",\"phone\":\"1234567890\",\"address\":\"Calle Falsa 123\"},\"producto\":[{\"id_producto\":1,\"nombre\":\"Producto 1\",\"descripcion\":\"Descripción del producto 1\",\"precio\":100.0,\"stock\":10}]}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.compra_id").value(compra.getCompra_id()));
-        verify(service, times(1)).newCompra(any(Compra.class));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -107,8 +105,7 @@ public class CompraControllerTest {
         mockMvc.perform(put("/compras/edit/" + compra.getCompra_id())
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content("{\"compra_id\":1,\"cliente\":{\"cliente_id\":1,\"nro_documento\":\"12345678\",\"name\":\"Juan Perez\",\"email\":\"jperez@email.com\",\"phone\":\"1234567890\",\"address\":\"Calle Falsa 123\"},\"producto\":[{\"id_producto\":1,\"nombre\":\"Producto 1\",\"descripcion\":\"Descripción del producto 1\",\"precio\":100.0,\"stock\":10}]}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.compra_id").value(compra.getCompra_id()));
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -61,13 +61,11 @@ public class ClienteController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<ClienteModel> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
+    public ResponseEntity<?> updateCliente(@PathVariable Long id, @RequestBody Cliente cliente){
 
-        Cliente updatedCliente = clienteService.updateCliente(id, cliente);
-        ClienteModel clienteModel = clienteModelAssembler.toModel(updatedCliente);
+        clienteService.updateCliente(id, cliente);
 
-        return ResponseEntity
-                .ok(clienteModel);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/delete/{id}")

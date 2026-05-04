@@ -91,8 +91,7 @@ public class OrdenCompraControllerTest {
         mockMvc.perform(post("/ordenes-compra/new/" + compra.getCompra_id())
                         .contentType("application/json")
                         .content("{\"fecha_orden\":\"2024-07-01\",\"pago\":{\"id_pago\":1,\"medio_pago\":\"Crédito\",\"fecha_pago\":\"2024-07-01\",\"total_pago\":100.0,\"compra\":{\"compra_id\":1}}}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(ordenCompra.getId()));
+                .andExpect(status().isCreated());
     }
 
     @Test

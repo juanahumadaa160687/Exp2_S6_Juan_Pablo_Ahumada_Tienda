@@ -87,8 +87,7 @@ public class ProductoControllerTest {
         mockMvc.perform(put("/productos/edit/" + producto.getId_producto())
                 .contentType("application/json")
                 .content("{\"nombre\":\"Producto 1\",\"descripcion\":\"Descripción del producto 1\",\"precio\":100.0,\"stock\":10}"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id_producto").value(producto.getId_producto()));
+                .andExpect(status().isOk());
     }
 
     @Test

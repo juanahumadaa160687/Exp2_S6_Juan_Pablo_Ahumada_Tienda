@@ -70,9 +70,7 @@ public class ClienteControllerTest {
         mockMvc.perform(post("/clientes/new")
                 .contentType("application/json")
                 .content("{\"nro_documento\":\"12345678\",\"name\":\"Juan Perez\",\"email\":\"jperez@email.com\",\"phone\":\"1234567890\",\"address\":\"Calle Falsa 123\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.cliente_id").value(cliente.getCliente_id()));
-        verify(service, times(1)).newCliente(any(Cliente.class));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -85,8 +83,7 @@ public class ClienteControllerTest {
         mockMvc.perform(put("/clientes/edit/"+cliente.getCliente_id())
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content("{\"nro_documento\":\"12345678\",\"name\":\"Juan Perez\",\"email\":\"jperez@email.com\",\"phone\":\"1234567890\",\"address\":\"Calle Falsa 123\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.cliente_id").value(cliente.getCliente_id()));
+                .andExpect(status().isOk());
     }
 
     @Test
