@@ -30,7 +30,7 @@ public class Compra {
     )
     private List<Producto> producto;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "FK_COMPRA_CLIENTE"))
     private Cliente cliente;
 

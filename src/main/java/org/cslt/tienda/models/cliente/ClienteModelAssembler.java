@@ -13,6 +13,7 @@ public class ClienteModelAssembler implements RepresentationModelAssembler<Clien
 
     @Override
     public ClienteModel toModel(Cliente cliente) {
+
         ClienteModel clienteModel = new ClienteModel();
 
         clienteModel.setCliente_id(cliente.getCliente_id());
